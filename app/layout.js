@@ -2,6 +2,8 @@ import { Inter } from "next/font/google";
 import Header from "@/components/Header";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { ClerkProvider } from "@clerk/nextjs";
+import { shadesOfPurple } from "@clerk/themes";
 
 export const metadata = {
   title: "SyncWave",
@@ -12,6 +14,22 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({ children }) {
   return (
+    <ClerkProvider
+      appearance={{
+        baseTheme:shadesOfPurple,
+        variables: {
+          colorPrimary: "#3b82f6",
+          colorBackground: "#1a202c",
+          colorInputBackground: "#2D3748",
+          colorInputText: "#F3F4F6"
+        },
+        elements: {
+          formButtonPrimary: "text-white",
+          card: "bg-gray-800",
+          headerSubtitle: "text-gray-400"
+        }
+      }}
+    >
     <html lang="en">
       <body className={`${inter.className}`}>
         <ThemeProvider attribute="class" defaultTheme="dark">
@@ -27,5 +45,6 @@ export default function RootLayout({ children }) {
         </ThemeProvider>
       </body>
     </html>
+    </ClerkProvider>
   );
 }
