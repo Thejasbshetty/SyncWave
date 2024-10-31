@@ -1,23 +1,32 @@
 "use client";
-import OrgSwitcher from "@/components/org-switcher";
-import { useOrganization, useUser } from "@clerk/nextjs";
-import { useEffect, useState } from "react";
+
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { projectSchema } from "@/app/lib/validators";
+import { useRouter } from "next/navigation";
+import { useOrganization, useUser } from "@clerk/nextjs";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
+import useFetch from "@/hooks/use-fetch";
+import { projectSchema } from "@/app/lib/validators";
+import { createProject } from "@/actions/projects";
+import { BarLoader } from "react-spinners";
+import OrgSwitcher from "@/components/org-switcher";
 
-const CreateProjectPage = () => {
+export default function CreateProjectPage() {
+  const router = useRouter();
   const { isLoaded: isOrgLoaded, membership } = useOrganization();
   const { isLoaded: isUserLoaded } = useUser();
   const [isAdmin, setIsAdmin] = useState(false);
 
-    const {register, handleSubmit, formState: {errors}} = useForm({
-        resolver: zodResolver(projectSchema),
-      });
-
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(projectSchema),
+  });
 
   useEffect(() => {
     if (isOrgLoaded && isUserLoaded && membership) {
@@ -25,11 +34,29 @@ const CreateProjectPage = () => {
     }
   }, [isOrgLoaded, isUserLoaded, membership]);
 
+  const {
+    loading,
+    error,
+    data: project,
+    fn: createProjectFn,
+  } = useFetch(createProject);
+
+  const onSubmit = async (data) => {
+    if (!isAdmin) {
+      alert("Only organization admins can create projects");
+      return;
+    }
+
+    createProjectFn(data);
+  };
+
+  useEffect(() => {
+    if (project) router.push(`/project/${project.id}`);
+  }, [loading]);
+
   if (!isOrgLoaded || !isUserLoaded) {
     return null;
   }
-
-    const onSubmit = async (data) => {}
 
   if (!isAdmin) {
     return (
@@ -41,9 +68,12 @@ const CreateProjectPage = () => {
       </div>
     );
   }
+
   return (
     <div className="container mx-auto py-10">
-      <h1 className="text-6xl text-center font-bold mb-8 gradient-title">Create Project</h1>
+      <h1 className="text-6xl text-center font-bold mb-8 gradient-title">
+        Create New Project
+      </h1>
 
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -84,10 +114,19 @@ const CreateProjectPage = () => {
             </p>
           )}
         </div>
-        <Button type="submit" size="lg" className="bg-blue-500 text-white">Create Project</Button>
+        {loading && (
+          <BarLoader className="mb-4" width={"100%"} color="#36d7b7" />
+        )}
+        <Button
+          type="submit"
+          size="lg"
+          disabled={loading}
+          className="bg-blue-500 text-white"
+        >
+          {loading ? "Creating..." : "Create Project"}
+        </Button>
+        {error && <p className="text-red-500 mt-2">{error.message}</p>}
       </form>
     </div>
   );
-};
-
-export default CreateProjectPage;
+}
