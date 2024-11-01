@@ -44,83 +44,68 @@ export async function createProject(data) {
   }
 }
 
-export async function getProjects(orgId) {
-    const { userId } = auth();
-    if (!userId) {
-      throw new Error("Unauthorized");
-    }
-    const user = await db.user.findUnique({
-        where: { clerkUserId: userId },
-    });
+export async function getProject(projectId) {
+  const { userId, orgId } = auth();
 
-    if (!user) {
-        throw new Error("User not found");
-    }
+  if (!userId || !orgId) {
+    throw new Error("Unauthorized");
+  }
 
-    const projects = await db.project.findMany({
-        where: { organizationId: orgId },
+  // Find user to verify existence
+  const user = await db.user.findUnique({
+    where: { clerkUserId: userId },
+  });
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  // Get project with sprints and organization
+  const project = await db.project.findUnique({
+    where: { id: projectId },
+    include: {
+      sprints: {
         orderBy: { createdAt: "desc" },
-    });
-    return projects;
+      },
+    },
+  });
+
+  if (!project) {
+    throw new Error("Project not found");
+  }
+
+  // Verify project belongs to the organization
+  if (project.organizationId !== orgId) {
+    return null;
+  }
+
+  return project;
 }
 
 export async function deleteProject(projectId) {
-    const { userId, orgId, orgRole } = auth();
-    if (!userId || !orgId) {
-      throw new Error("Unauthorized");
-    }
-    if(orgRole !== "org:admin"){
-        throw new Error("Only organization admins can delete projects");
-    }
+  const { userId, orgId, orgRole } = auth();
 
+  if (!userId || !orgId) {
+    throw new Error("Unauthorized");
+  }
 
-    const project = await db.project.findUnique({
-        where: { id: projectId },
-    });
+  if (orgRole !== "org:admin") {
+    throw new Error("Only organization admins can delete projects");
+  }
 
-    if (!project || project.organizationId !== orgId) {
-        throw new Error("Project not found or does not belong to this organization");
-    }
+  const project = await db.project.findUnique({
+    where: { id: projectId },
+  });
 
-    await db.project.delete({
-        where: { id: projectId },
-    });
+  if (!project || project.organizationId !== orgId) {
+    throw new Error(
+      "Project not found or you don't have permission to delete it"
+    );
+  }
 
-    return { success: true };
-}
+  await db.project.delete({
+    where: { id: projectId },
+  });
 
-export async function getProject(projectId) {
-    const { userId, orgId } = auth();
-    if (!userId ||!orgId) {
-      throw new Error("Unauthorized");
-    }
-
-    const user = await db.user.findUnique({
-        where: { clerkUserId: userId },
-    });
-
-    if (!user) {
-        throw new Error("User not found");
-    }
-
-    const project = await db.project.findUnique({
-        where: { id: projectId },
-        include:{
-            sprints:{
-                orderBy:{
-                    createdAt: "desc"
-                },
-            },
-        },
-    });
-
-    if(!project){
-        return null;
-    }
-
-    if(project.organizationId !== orgId){
-        return null;
-    }
-
-    return project;
+  return { success: true };
 }
