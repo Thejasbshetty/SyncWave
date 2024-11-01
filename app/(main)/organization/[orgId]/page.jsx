@@ -1,16 +1,24 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import { getOrganization } from "@/actions/organization";
+import { getOrganization } from "@/actions/organizations";
 import OrgSwitcher from "@/components/org-switcher";
 import ProjectList from "./_components/project-list";
+import UserIssues from "./_components/user-issues";
 
-const organization = async ({params}) => {
-    const { orgId } = params;
-    const organization = await getOrganization(orgId);
+export default async function OrganizationPage({ params }) {
+  const { orgId } = params;
+  const { userId } = auth();
 
-    if(!organization){
-        return <div>Organization not found</div>
-    }
+  if (!userId) {
+    redirect("/sign-in");
+  }
+
+  const organization = await getOrganization(orgId);
+
+  if (!organization) {
+    return <div>Organization not found</div>;
+  }
+
   return (
     <div className="container mx-auto px-4">
       <div className="mb-4 flex flex-col sm:flex-row justify-between items-start">
@@ -23,9 +31,9 @@ const organization = async ({params}) => {
       <div className="mb-4">
         <ProjectList orgId={organization.id} />
       </div>
-      <div>Shows project details</div>
+      <div className="mt-8">
+        <UserIssues userId={userId} />
       </div>
-  )
+    </div>
+  );
 }
-
-export default organization

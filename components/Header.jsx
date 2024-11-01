@@ -8,21 +8,18 @@ import UserMenu from "./user-menu";
 import { checkUser } from "../lib/checkUser";
 import UserLoading from "./user-loading";
 
-const Header = async() => {
-  await checkUser()
+const Header = async () => {
+  await checkUser();
 
   return (
     <header className="container mx-auto">
       <nav className="py-6 px-4 flex justify-between items-center">
-        <Link href="/">
-          <Image
-            src={"/logo.png"}
-            alt="SyncWave Logo"
-            width={200}
-            height={56}
-            className="h-10 w-auto object-contain"
-          />
+        <Link href="/" className="flex items-center">
+          <span className="text-3xl font-bold text-blue-600 hover:text-blue-800 transition duration-300">
+            SyncWave
+          </span>
         </Link>
+
         <div className="flex items-center gap-4">
           <Link href="/project/create">
             <Button className="flex items-center gap-2">

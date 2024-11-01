@@ -1,13 +1,12 @@
-import { Span } from 'next/dist/trace'
-import React, { Suspense } from 'react'
-import { BarLoader } from 'react-spinners'
+import { Suspense } from "react";
+import { BarLoader } from "react-spinners";
 
-const ProjectLayout = async ({children}) => {
+export default async function ProjectLayout({ children }) {
   return (
     <div className="mx-auto">
-      <Suspense fallback={<span>Loading Project...</span>}>{children}</Suspense>
+      <Suspense fallback={<BarLoader width={"100%"} color="#36d7b7" />}>
+        {children}
+      </Suspense>
     </div>
-  )
+  );
 }
-
-export default ProjectLayout
