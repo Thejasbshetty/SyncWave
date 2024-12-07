@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# SyncWave - Full-Stack Project Management Tool
 
-## Getting Started
+SyncWave is a comprehensive project management tool designed to streamline collaboration and enhance productivity. With features catering to both small teams and large organizations, SyncWave offers an efficient way to manage projects, organize tasks, and track progress.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### **Organization Management**
+- Create an organization or join an existing one.
+- Admins can:
+  - Invite members to the organization.
+  - Manage organizational settings.
+- Organizations can house multiple projects.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### **Project Management**
+- Create and manage multiple projects within an organization.
+- Assign members to specific projects.
+- Projects can have multiple sprint cycles for better task organization.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### **Sprint and Issue Management**
+- **Sprints:**
+  - Create and manage sprints within projects.
+  - Organize tasks and issues into sprint cycles.
+- **Issues:**
+  - Create, update, and track issues in sprints.
+  - Reorder issues based on priority.
+  - Apply filters to issues for better visibility and management.
+    - Filter issues by priority (e.g., High, Medium, Low).
 
-## Learn More
+### **Collaboration Features**
+- Invite team members to collaborate on projects.
+- Assign tasks and responsibilities to team members.
+- Track issue statuses and updates in real time.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📂 Project Structure
+The project is structured for scalability and maintainability:
+- **Organization Layer:** Handles creation, management, and user roles within an organization.
+- **Project Layer:** Focuses on project-specific tasks and team management.
+- **Sprint Layer:** Organizes tasks into manageable cycles for better progress tracking.
+- **Issue Layer:** Enables detailed tracking and prioritization of individual tasks.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🌟 Why Choose SyncWave?
+- Streamlined workflow for organizations and projects.
+- Intuitive UI with powerful filtering and prioritization tools.
+- Scalable architecture built with cutting-edge technologies.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+---
+
+## 📧 Feedback and Contributions
+We welcome contributions and feedback to improve SyncWave! Please feel free to raise issues or submit pull requests.
+
+---
