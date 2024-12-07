@@ -1,59 +1,69 @@
-# SyncWave - Full-Stack Project Management Tool
-
-SyncWave is a comprehensive project management tool designed to streamline collaboration and enhance productivity. With features catering to both small teams and large organizations, SyncWave offers an efficient way to manage projects, organize tasks, and track progress.
+Here’s the updated README for **SyncWave**:
 
 ---
 
-## 🚀 Features
+# SyncWave - Full-Stack Project Management Tool  
 
-### **Organization Management**
-- Create an organization or join an existing one.
-- Admins can:
-  - Invite members to the organization.
-  - Manage organizational settings.
-- Organizations can house multiple projects.
-
-### **Project Management**
-- Create and manage multiple projects within an organization.
-- Assign members to specific projects.
-- Projects can have multiple sprint cycles for better task organization.
-
-### **Sprint and Issue Management**
-- **Sprints:**
-  - Create and manage sprints within projects.
-  - Organize tasks and issues into sprint cycles.
-- **Issues:**
-  - Create, update, and track issues in sprints.
-  - Reorder issues based on priority.
-  - Apply filters to issues for better visibility and management.
-    - Filter issues by priority (e.g., High, Medium, Low).
-
-### **Collaboration Features**
-- Invite team members to collaborate on projects.
-- Assign tasks and responsibilities to team members.
-- Track issue statuses and updates in real time.
+**SyncWave** is an advanced project management tool designed to empower teams to collaborate efficiently, organize tasks effectively, and boost productivity. With features like sprint cycles, issue management, and role-based actions, SyncWave provides everything you need to manage your projects seamlessly.  
 
 ---
 
-## 📂 Project Structure
-The project is structured for scalability and maintainability:
-- **Organization Layer:** Handles creation, management, and user roles within an organization.
-- **Project Layer:** Focuses on project-specific tasks and team management.
-- **Sprint Layer:** Organizes tasks into manageable cycles for better progress tracking.
-- **Issue Layer:** Enables detailed tracking and prioritization of individual tasks.
+## Key Features  
+
+### **Organization Management**  
+- Create or join organizations.  
+- Admin-only ability to invite members to the organization.  
+
+### **Project Management**  
+- Multiple projects per organization.  
+- Only admins can create new projects and manage team members.  
+
+### **Sprint Management**  
+- Create and manage sprint cycles for better task segmentation.  
+- Switch between sprints to track team progress.  
+
+### **Issue Management**  
+- Add issues to sprints with customizable details.  
+- Prioritize issues: **Low**, **Medium**, **High**, **Urgent**.  
+- Drag and drop issues across stages: **Todo**, **In Progress**, **In Review**, **Done**.  
+
+### **Filtering and Search**  
+- Filter issues based on priority.  
+- Search issues by name, assigned user, or priority.  
+
+### **Collaboration Features**  
+- Assign issues to specific team members.  
+- Track updates and ensure task ownership.  
 
 ---
 
+## Technologies Used  
+
+### **Frontend**  
+- **Framework**: Next.js  
+- **Styling**: Tailwind CSS, ShadCN
+- **Forms**: React Hook Form, Zod, @hookform/resolvers  
+- **UI Enhancements**: React Spinners, Toast Sonner, React DayPicker  
+- **Drag and Drop**: @hello-pangea/dnd  
+
+### **Backend**  
+- **Server Actions**: Next.js API Routes  
+- **ORM**: Prisma ORM  
+
+### **Database**  
+- **Type**: PostgreSQL  
+- **Provider**: Neon DB (Serverless PostgreSQL)  
+
+### **Authentication**  
+- **Service**: Clerk  
+
+### **Deployment**  
+- **Platform**: Vercel  
+
 ---
 
-## 🌟 Why Choose SyncWave?
-- Streamlined workflow for organizations and projects.
-- Intuitive UI with powerful filtering and prioritization tools.
-- Scalable architecture built with cutting-edge technologies.
+## Access SyncWave  
 
----
-
-## 📧 Feedback and Contributions
-We welcome contributions and feedback to improve SyncWave! Please feel free to raise issues or submit pull requests.
+Explore SyncWave and its features live at [https://syncwave-gules.vercel.app/](https://syncwave-gules.vercel.app/).  
 
 ---
